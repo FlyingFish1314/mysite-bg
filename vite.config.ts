@@ -27,7 +27,7 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()]
     }),
-     createStyleImportPlugin({
+    createStyleImportPlugin({
       resolves: [ElementPlusResolve()],
       libs: [
         {
