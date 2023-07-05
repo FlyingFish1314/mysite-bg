@@ -32,5 +32,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SwitchDark: typeof import('./src/components/SwitchDark/index.vue')['default']
+    Theme: typeof import('./src/components/Theme/index.vue')['default']
   }
 }
