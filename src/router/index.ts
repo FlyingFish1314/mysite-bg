@@ -1,32 +1,64 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  type RouteRecordRaw
+} from 'vue-router'
+import Layout from '@/layout/index.vue'
+// 扩展继承属性
+interface extendRoute {
+  hidden?: boolean
+}
+
+export const constantRoutes: Array<RouteRecordRaw & extendRoute> = [
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/errorPages/404.vue'),
+    hidden: true
+  },
+  {
+    path: '/403',
+    name: '403',
+    component: () => import('@/views/errorPages/403.vue'),
+    hidden: true
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+    hidden: true,
+    meta: { title: '登录' }
+  },
+  {
+    path: '/',
+    name: 'layout',
+    component: Layout,
+    redirect: '/home',
+    meta: { title: '首页', icon: 'House' },
+    children: [
+      {
+        path: '/home',
+        component: () => import('@/views/home/index.vue'),
+        name: 'home',
+        meta: { title: '首页', icon: 'House', affix: true, role: ['other'] }
+      }
+    ]
+  }
+]
+
+/**
+ * notFoundRouter(找不到路由)
+ */
+export const notFoundRouter = {
+  path: '/:pathMatch(.*)',
+  name: 'notFound',
+  redirect: '/404'
+}
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      redirect: '/main'
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/login/index.vue')
-    },
-    {
-      path: '/main',
-      name: 'main',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/main/Main.vue')
-    },
-    {
-      path: '/:pathMatch(.*)',
-      component: () => import('../views/node-found/NotFound.vue')
-    }
-  ]
+  // history: createWebHistory(process.env.BASE_URL), // history
+  history: createWebHashHistory(), // hash
+  routes: constantRoutes
 })
-
-// 导航守卫
 
 export default router
