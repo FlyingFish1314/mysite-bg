@@ -1,7 +1,11 @@
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/' }" key="home" v-if="matched[0].meta.title !== '首页'">
+      <el-breadcrumb-item
+        :to="{ path: '/' }"
+        key="home"
+        v-if="matched[0].meta.title !== '首页'"
+      >
         <div class="breadcrumb-item">
           <span class="breadcrumb-title">首页</span>
         </div>
@@ -19,19 +23,21 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
-  import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-  const route = useRoute()
-  const router = useRouter()
+const route = useRoute()
+const router = useRouter()
 
-  const handleLink = (item) => {
-    router.push({
-      path: item.path,
-    })
-  }
+const handleLink = (item) => {
+  router.push({
+    path: item.path
+  })
+}
 
-  const matched = computed(() =>
-    route.matched.filter((item) => item.meta && item.meta.title && item.meta.breadcrumb !== false),
+const matched = computed(() =>
+  route.matched.filter(
+    (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
   )
+)
 </script>
