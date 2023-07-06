@@ -9,6 +9,8 @@ interface extendRoute {
   hidden?: boolean
 }
 
+export const asyncRoutes = []
+
 export const constantRoutes: Array<RouteRecordRaw & extendRoute> = [
   {
     path: '/404',
